@@ -38,10 +38,16 @@ export const createNewCell = (notebookID, notebook) => {
     description: "",
   });
 
-  console.log(notebook);
-
   const notebookRef = firebase
     .database()
     .ref("notebooks/" + notebookID + "/cells");
   notebookRef.set([...(notebook.cells == null ? [] : notebook.cells), cellID]);
 };
+
+export const deleteCell = (cellID, cell, notebook) => {
+  const ref = firebase.database().ref("cells/" + cellID);
+  const notebookRef = firebase.database().ref("notebooks/" + cell.notebookID + "/cells");
+  
+  ref.remove();
+  notebookRef.set(notebook.cells.filter((c) => c!==cellID));
+}

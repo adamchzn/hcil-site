@@ -14,7 +14,7 @@ function CellType({ cell, cellID }) {
   };
 
   return (
-    <select className="cell-type" onChange={onTypeSelected}>
+    <select className="cell-type" value={cell.type} onChange={onTypeSelected}>
       {Object.keys(CELL_TYPES).map((key) => (
         <option value={CELL_TYPES[key]} defaultValue={cell.type==CELL_TYPES[key]}>
           {CELL_TYPES[key]}

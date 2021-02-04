@@ -20,6 +20,7 @@ export function useCellCalculations(notebook) {
       }
 
       setHasFetched((hasFetched) => ({ ...hasFetched, [cellID]: true }));
+      console.log(cellID);
 
       var cellRef = firebase.database().ref("cells/" + cellID);
       cellRef.on("value", (snapshot) => {

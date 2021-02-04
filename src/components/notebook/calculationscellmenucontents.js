@@ -1,16 +1,10 @@
-import React, { useState } from "react";
-import CalculationsMenu from "./calculationsmenu";
+import React from "react";
 
-function CalculationsCellMenuContents(cell, cellID) {
-  const [popupShown, setPopupShown] = useState(false);
-
+function CalculationsCellMenuContents({ onClickChangeCalc }) {
   return (
     <>
-      <div className="cell-menu-row" onClick={setPopupShown}>
+      <div className="cell-menu-row" onClick={onClickChangeCalc}>
         <p>Change calculation</p>
-      </div>
-      <div className="cell-menu-row delete-row">
-        <p>Delete</p>
       </div>
     </>
   );

@@ -436,17 +436,22 @@ nav {
     }
 }
 
+.cell-menu-container {
+    position: relative;
+}
+
 .cell-menu-popup {
     display: flex;
     flex-direction: column;
-    position: relative;
+    position: absolute;
+    left: 20px;
+    top: -10px;
     z-index: 1;
     align-self: flex-end;
     background-color: #ffffff;
-    position: relative;
     border-radius: 10px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
-    width: fit-content;
+    width: max-content;
     padding-top: 5px;
     padding-bottom: 5px;
 
@@ -465,18 +470,20 @@ nav {
     }
 }
 
-.calculations-menu-bg {
+.modal-bg {
     position: fixed;
-    z-index: initial;
-    width: 100%;
-    height: 100%;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.calculations-menu {
+.modal-wrapper {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
@@ -484,24 +491,22 @@ nav {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
     width: 600px;
     height: fit-content;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    padding: 5px 10px 5px 10px;
+    padding: 15px;
     position: relative;
+}
 
-    .calculations-menu-row {
-        display: flex;
-        align-self: stretch;
-        align-items: center;
-        font-size: 14px;
-        height: 20px;
-    }
+.calculations-menu-row {
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    font-size: 14px;
+    height: 20px;
 }
 
 .notebook-header {
     margin-bottom: 20px;
     width: 100%;
+    z-index: 2;
 
     ul {
         height: 60px;

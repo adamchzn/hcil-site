@@ -18,7 +18,7 @@ function CalculationsMenu({ setPopupHidden, cell, cellID }) {
   };
 
   return (
-    <div className="calculations-menu">
+    <>
       <h4>Select operation</h4>
       {Object.keys(CALCULATIONS).map((key) => (
         <div className="calculations-menu-row">
@@ -31,7 +31,7 @@ function CalculationsMenu({ setPopupHidden, cell, cellID }) {
           <label htmlFor={CALCULATIONS[key]}>{CALCULATIONS[key]}</label>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 

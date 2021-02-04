@@ -1,49 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import useOutsideAlerter from "./../../useoutsidealerter.js";
-import { CELL_TYPES } from "../../constants.js";
-import CalculationsCellMenuContents from "./calculationscellmenucontents";
+import { deleteCell } from "./../../utilities.js";
+import NotebookContext from "./../../notebookcontext.js";
 
-function CellMenuPopup({ setPopupHidden, cell, cellID }) {
+function CellMenuPopup({ setPopupHidden, children, cell, cellID }) {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, setPopupHidden);
 
-  let cellMenuContents;
-  switch (cell.type) {
-    case CELL_TYPES.calculation:
-      cellMenuContents = (
-        <CalculationsCellMenuContents cell={cell} cellID={cellID} />
-      );
-      break;
-    case CELL_TYPES.chart:
-      cellMenuContents = (
-        <>
-          <div className="cell-menu-row">
-            <p>Change input</p>
-          </div>
-          <div className="cell-menu-row delete-row">
-            <p>Delete</p>
-          </div>
-        </>
-      );
-      break;
-    case CELL_TYPES.loadData:
-      cellMenuContents = (
-        <>
-          <div className="cell-menu-row">
-            <p>Filter data</p>
-          </div>
-          <div className="cell-menu-row delete-row">
-            <p>Delete</p>
-          </div>
-        </>
-      );
-      break;
-  }
+  const notebook = useContext(NotebookContext);
 
   return (
     // Menu contents should change depending on the type of cell
     <div className="cell-menu-popup" ref={wrapperRef}>
-      {cellMenuContents}
+      {children}
+      <div className="cell-menu-row delete-row" onClick={() => deleteCell(cellID, cell, notebook)}>
+        <p>Delete</p>
+      </div>
     </div>
   );
 }

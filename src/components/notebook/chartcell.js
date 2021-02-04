@@ -1,13 +1,18 @@
 import React from "react";
-import firebase from "firebase";
-
+import CellLayout from "./celllayout.js";
 import Chart from "./../../images/Group 5.png";
+import ChartCellMenuContents from "./chartcellmenucontents.js";
 
 function ChartCell({ cell, cellID }) {
   return (
-    <>
-        <img className="chart" src={Chart}></img>
-    </>
+    <CellLayout
+      cell={cell}
+      cellID={cellID}
+      cellOperation="Chart"
+      popupContents={<ChartCellMenuContents />}
+    >
+      <img className="chart" src={Chart}></img>
+    </CellLayout>
   );
 }
 

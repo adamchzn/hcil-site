@@ -86,6 +86,31 @@ export function min(input) {
   return output;
 }
 
+// calculate quartiles
+// export function quartiles(input) {
+//   const output = {};
+
+//   let qOne = 1;
+//   let qThree = 3;
+//   for (const columnID in input) {
+//     const column = input[columnID];
+//     // let median = median(input);
+
+//     const splitOne = {};
+//     const splitTwo = {};
+//     for (let i in columnID) {
+//       if (column[i] < 10) {
+//         splitOne[columnID] = splitOne.push(column[i]);
+//       } else splitTwo = column[i];
+//     }
+//     console.log(input, splitOne, splitTwo);
+//   }
+
+//   // output = [qOne, median, qThree];
+//   console.log(output);
+// }
+
+
 // create template data
 export function dumbdata() {
   const data = {
