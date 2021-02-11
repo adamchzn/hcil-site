@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
 import Menu from "./menu.js";
-import List from "./list.js";
+import NotebookList from "./notebooklist.js";
 import NewItemPopup from "./newitempopup.js";
 
-function Home() {
+function Home({children}) {
   const [popupShown, setPopupShown] = useState(false); 
 
   return (
     <div className="home-container">
       <Menu setPopupShown={setPopupShown} />
-      <List />
+      {children}
       {popupShown ? (
         <NewItemPopup setPopupHidden={() => setPopupShown(false)}/>
       ) : null}

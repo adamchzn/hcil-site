@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-function DataCellMenuContents(cell, cellID) {
+function DataCellMenuContents({ onClickChangeDataset }) {
   return (
     <>
-      <div className="cell-menu-row">
-        <p>Filter data</p>
+      <div className="cell-menu-row" onClick={onClickChangeDataset}>
+        <p>Change dataset</p>
       </div>
     </>
   );

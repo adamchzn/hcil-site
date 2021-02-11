@@ -3,7 +3,7 @@ import firebase from "firebase";
 
 import ItemContainer from "./itemcontainer.js";
 
-function List() {
+function NotebookList() {
   const [notebooks, setNotebooks] = useState(null);
 
   useEffect(() => {
@@ -11,7 +11,6 @@ function List() {
     notebooksRef.on("value", (snapshot) => {
       const data = snapshot.val();
       setNotebooks(data);
-      console.log(data);
     });
   }, []);
 
@@ -35,4 +34,4 @@ function List() {
   );
 }
 
-export default List;
+export default NotebookList;

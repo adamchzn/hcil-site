@@ -16,7 +16,9 @@ function Menu({ setPopupShown }) {
       <Link to={ROUTES.homepage}>
         <h3 className="menu-subhead">Notebooks</h3>
       </Link>
-      <h3 className="menu-subhead"> Datasets</h3>
+      <Link to={ROUTES.datasets}>
+        <h3 className="menu-subhead">Datasets</h3>
+      </Link>
       <h3 className="menu-subhead"> Charts</h3>
     </div>
   );

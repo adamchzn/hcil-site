@@ -25,26 +25,8 @@ export function median(input) {
 
   for (const columnID in input) {
     const column = input[columnID];
+    const median = columnMedian(column);
 
-    let midpoint = 0;
-    let median = 0;
-    if (column.length % 2 === 0) {
-      //even
-      midpoint = column.length / 2;
-
-      // need to order by value first
-      const sorted = [...column].sort((a, b) => a - b);
-      median = (sorted[midpoint] + sorted[midpoint - 1]) / 2;
-    }
-
-    if (column.length % 2 === 1) {
-      //odd
-      midpoint = Math.floor(column.length / 2);
-
-      // need to order by value first
-      const sorted = [...column].sort();
-      median = sorted[midpoint];
-    }
     output[columnID] = [median];
   }
   return output;
@@ -87,29 +69,49 @@ export function min(input) {
 }
 
 // calculate quartiles
-// export function quartiles(input) {
-//   const output = {};
+export function quartiles(input) {
+  const output = {};
 
-//   let qOne = 1;
-//   let qThree = 3;
-//   for (const columnID in input) {
-//     const column = input[columnID];
-//     // let median = median(input);
+  let qOne = 1;
+  let qThree = 3;
+  for (const columnID in input) {
+    const column = input[columnID];
+    
+    const sorted = [...column].sort((a, b) => a - b);
+    const median = columnMedian(sorted);
+    const splitOne = sorted.slice(0, median);
+    const splitTwo = sorted.slice(median);
 
-//     const splitOne = {};
-//     const splitTwo = {};
-//     for (let i in columnID) {
-//       if (column[i] < 10) {
-//         splitOne[columnID] = splitOne.push(column[i]);
-//       } else splitTwo = column[i];
-//     }
-//     console.log(input, splitOne, splitTwo);
-//   }
+    qOne = columnMedian(splitOne);
+    qThree = columnMedian(splitTwo);
 
-//   // output = [qOne, median, qThree];
-//   console.log(output);
-// }
+    output[columnID] = [qOne, median, qThree];
+  }
+  return output;
+}
 
+function columnMedian(column) {
+  let midpoint = 0;
+  let median = 0;
+  if (column.length % 2 === 0) {
+    //even
+    midpoint = column.length / 2;
+
+    // need to order by value first
+    const sorted = [...column].sort((a, b) => a - b);
+    median = (sorted[midpoint] + sorted[midpoint - 1]) / 2;
+  }
+
+  if (column.length % 2 === 1) {
+    //odd
+    midpoint = Math.floor(column.length / 2);
+
+    // need to order by value first
+    const sorted = [...column].sort();
+    median = sorted[midpoint];
+  }
+  return median;
+}
 
 // create template data
 export function dumbdata() {
@@ -123,7 +125,8 @@ export function dumbdata() {
 }
 
 // perform calculation
-export function docalculations(cells, cellIDs) {
+// need to add a way to get the referenced dataset
+export function doCalculations(cells, cellIDs, datasets) {
   const results = {};
 
   for (const i in cellIDs) {
@@ -146,16 +149,24 @@ export function docalculations(cells, cellIDs) {
           case CALCULATIONS.max:
             output = max(input);
             break;
+          case CALCULATIONS.quartiles:
+            output = quartiles(input);
+            break;
         }
         break;
       case CELL_TYPES.chart:
         output = {};
         break;
       case CELL_TYPES.loadData:
-        output = dumbdata();
+        // make this the cell's dataset and also the datasets so it can look the dataset up
+        output = loadData(datasets, cells[cellID]);
         break;
     }
     results[cellID] = output;
   }
   return results;
+}
+
+function loadData(datasets, cell) {
+  return datasets[cell.dataset].data;
 }

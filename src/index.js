@@ -9,7 +9,11 @@ import Header from "./components/header.js";
 import Home from "./components/home/home.js";
 import Notebook from "./components/notebook/notebook.js";
 
+import DatasetList from "./components/home/datasetlist.js";
+import NotebookList from "./components/home/notebooklist.js";
+
 import { ROUTES } from "./routes.js";
+import DatasetsContextProvider from "./datasetscontextprovider.js";
 
 function Container() {
   return (
@@ -18,13 +22,25 @@ function Container() {
         <Route
           path={ROUTES.notebook}
           children={({ match }) => (
-            <Notebook notebookID={match.params.notebookID} />
+            <DatasetsContextProvider>
+              <Notebook notebookID={match.params.notebookID}></Notebook>
+            </DatasetsContextProvider>
           )}
         ></Route>
+        <Route path={ROUTES.datasets}>
+          <div className="container">
+            <Header />
+            <Home>
+              <DatasetList />
+            </Home>
+          </div>
+        </Route>
         <Route path={ROUTES.homepage}>
           <div className="container">
             <Header />
-            <Home />
+            <Home>
+              <NotebookList />
+            </Home>
           </div>
         </Route>
       </Switch>

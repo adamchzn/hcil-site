@@ -9,5 +9,5 @@ export const CALCULATIONS = {
     median: "Median",
     min: "Minimum",
     max: "Maximum",
-    // quartiles: "Quartile",
+    quartiles: "Quartiles",
 }
