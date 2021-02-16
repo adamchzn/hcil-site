@@ -19,7 +19,11 @@ function CalculationCell({ cell, cellID, data }) {
     <CellLayout
       cell={cell}
       cellID={cellID}
-      cellOperation={"Calculating " + cell.calculation}
+      cellOperation={
+        cell.calculation == null
+          ? "Calculating"
+          : "Calculating " + cell.calculation
+      }
       popupContents={
         <CalculationsCellMenuContents
           onClickChangeCalc={() => setModalShown(true)}

@@ -18,18 +18,24 @@ function NotebookList() {
     <div className="list-container">
       <div className="list-header">
         <h1>Notebooks</h1>
+        <button className="list-new-button">New</button>
       </div>
-      {notebooks == null
-        ? <div className="list-container">Create your first notebook!</div>
-        : Object.keys(notebooks)
-            .slice(0)
-            .reverse()
-            .map((notebookID) => (
-              <ItemContainer
-                notebookID={notebookID}
-                notebook={notebooks[notebookID]}
-              />
-            ))}
+      <div className="list-desc">
+        Analyze your data and report your findings.
+      </div>
+      {notebooks == null ? (
+        <div className="list-container">Create your first notebook!</div>
+      ) : (
+        Object.keys(notebooks)
+          .slice(0)
+          .reverse()
+          .map((notebookID) => (
+            <ItemContainer
+              notebookID={notebookID}
+              notebook={notebooks[notebookID]}
+            />
+          ))
+      )}
     </div>
   );
 }

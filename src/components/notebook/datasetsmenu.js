@@ -28,6 +28,7 @@ function DatasetsMenu({ hideModal, cell, cellID }) {
               type="radio"
               name="calculations"
               value={datasets[key].title}
+              id={datasets[key].title}
               onChange={() => setSelectedDataset(key)}
               checked={key == selectedDataset}
             ></input>

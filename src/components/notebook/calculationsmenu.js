@@ -26,6 +26,7 @@ function CalculationsMenu({ hideModal, cell, cellID }) {
               type="radio"
               name="calculations"
               value={CALCULATIONS[key]}
+              id={CALCULATIONS[key]}
               onChange={() => setSelectedCalc(CALCULATIONS[key])}
               checked={CALCULATIONS[key] == selectedCalc}
             ></input>

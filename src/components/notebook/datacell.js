@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CellLayout from "./celllayout.js";
 import DataTable from "./datatable.js";
 import DataCellMenuContents from "./datacellmenucontents.js";
 import DatasetsMenu from "./datasetsmenu.js";
 import Modal from "./../modal.js";
+import DatasetsContext from "./../../datasetscontext.js";
 
 function DataCell({ cell, cellID, data }) {
   const [modalShown, setModalShown] = useState(false);
+  const datasets = useContext(DatasetsContext);
 
   useEffect(() => {
     if (cell.dataset == null) {
@@ -18,7 +20,11 @@ function DataCell({ cell, cellID, data }) {
     <CellLayout
       cell={cell}
       cellID={cellID}
-      cellOperation="Load data"
+      cellOperation={
+        cell.dataset == null
+          ? "Loading data"
+          : "Loading " + datasets[cell.dataset].title
+      }
       popupContents={
         <DataCellMenuContents
           onClickChangeDataset={() => setModalShown(true)}

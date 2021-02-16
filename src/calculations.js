@@ -168,5 +168,8 @@ export function doCalculations(cells, cellIDs, datasets) {
 }
 
 function loadData(datasets, cell) {
+  if (datasets[cell.dataset] == null) {
+    return {};
+  }
   return datasets[cell.dataset].data;
 }

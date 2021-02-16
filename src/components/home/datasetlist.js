@@ -18,17 +18,22 @@ function DatasetList() {
     <div className="list-container">
       <div className="list-header">
         <h1>Datasets</h1>
+        <button className="list-new-button">New</button>
       </div>
-      {datasets == null
-        ? <div className="list-container">Import your first dataset!</div>
-        : Object.keys(datasets)
-            .slice(0)
-            .reverse()
-            .map(() => (
-              <DatasetContainer
-
-              />
-            ))}
+      <div className="list-desc">
+        Import a dataset from your computer or enter data from scratch.
+      </div>
+      <div className="list-break"></div>
+      {datasets == null ? (
+        <div className="list-container">Import your first dataset!</div>
+      ) : (
+        Object.keys(datasets)
+          .slice(0)
+          .reverse()
+          .map((datasetID) => (
+            <DatasetContainer datasetID={datasetID} datasets={datasets} />
+          ))
+      )}
     </div>
   );
 }
