@@ -14,12 +14,12 @@ function Menu({ setPopupShown }) {
       ></img>
       <h1 className="menu-head"> My work </h1>
       <Link to={ROUTES.homepage}>
-        <p className="menu-subhead">Notebooks</p>
+        <div className="menu-subhead">Notebooks</div>
       </Link>
       <Link to={ROUTES.datasets}>
-        <p className="menu-subhead">Datasets</p>
+        <div className="menu-subhead">Datasets</div>
       </Link>
-      <p className="menu-subhead"> Charts</p>
+      <div className="menu-subhead"> Charts</div>
     </div>
   );
 }
