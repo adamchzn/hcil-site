@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { getNotebookRoute } from "../../routes";
 
-function ItemContainer({ notebook, notebookID, editNotebook }) {
+function ItemContainer({ notebook, notebookID }) {
   return (
     <div className="list-item">
       <div className="item-contents-row-one">

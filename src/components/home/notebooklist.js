@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
-
 import ItemContainer from "./itemcontainer.js";
+import { useCreateNewNotebook } from "./../../utilities.js";
 
 function NotebookList() {
   const [notebooks, setNotebooks] = useState(null);
+  const createNewNotebook = useCreateNewNotebook();
 
   useEffect(() => {
     var notebooksRef = firebase.database().ref("notebooks/");
@@ -18,7 +19,9 @@ function NotebookList() {
     <div className="list-container">
       <div className="list-header">
         <h1>Notebooks</h1>
-        <button className="list-new-button">New</button>
+        <button className="list-new-button" onClick={createNewNotebook}>
+          New notebook
+        </button>
       </div>
       <div className="list-desc">
         Analyze your data and report your findings.
