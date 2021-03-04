@@ -6,3 +6,4 @@ In development. Created by Adam Chazan.
 * React
 * Firebase
 * PapaParse
+* D3
