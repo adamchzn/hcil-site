@@ -161,15 +161,16 @@ export function doCalculations(cells, cellIDs, datasets) {
         // make this the cell's dataset and also the datasets so it can look the dataset up
         output = loadData(datasets, cells[cellID]);
         break;
+      // NEED TO DELETE
     }
     results[cellID] = output;
   }
   return results;
 }
 
-function loadData(datasets, cell) {
-  if (datasets[cell.dataset] == null) {
+export function loadData(datasets, notebook) {
+  if (datasets[notebook.dataset] == null) {
     return {};
   }
-  return datasets[cell.dataset].data;
+  return datasets[notebook.dataset].data;
 }

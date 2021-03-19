@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import firebase from "firebase";
 import { createNewCell } from "./../../utilities.js";
 import AddButton from "./../../images/add-button.svg";
@@ -7,6 +7,7 @@ import NotebookTitle from "./notebooktitle.js";
 import NotebookHeader from "./notebookheader.js";
 import { useCellCalculations } from "./usecellcalculations.js";
 import NotebookContext from "./../../notebookcontext.js";
+import InputData from "./inputdata.js";
 
 function Notebook({ notebookID }) {
   const [notebook, setNotebook] = useState(null);
@@ -32,6 +33,7 @@ function Notebook({ notebookID }) {
           ) : (
             <>
               <NotebookTitle notebook={notebook} notebookID={notebookID} />
+              <InputData notebook={notebook} notebookID={notebookID} />
               {notebook.cells == null
                 ? "Create a new cell"
                 : Object.values(notebook.cells || {}).map((cellID) => (

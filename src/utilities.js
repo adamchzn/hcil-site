@@ -17,6 +17,7 @@ export const useCreateNewNotebook = () => {
     const notebookID = ref.push().key;
     const notebook = {
       title: "",
+      dataset: null,
     };
 
     history.push(getNotebookRoute(notebookID));

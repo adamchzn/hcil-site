@@ -5,6 +5,7 @@ import CalculationsCellMenuContents from "./calculationscellmenucontents.js";
 import Modal from "./../modal.js";
 import CalculationsMenu from "./calculationsmenu.js";
 import EmptyCalculationCell from "./emptycalculationcell.js";
+import CalculationChart from "./calculationchart.js";
 
 function CalculationCell({ cell, cellID, data }) {
   const [modalShown, setModalShown] = useState(false);
@@ -38,7 +39,7 @@ function CalculationCell({ cell, cellID, data }) {
       ) : (
         <>
           <DataTable data={data} />
-          <div className="calculations-chart"></div>
+          <CalculationChart data={data}/>
         </>
       )}
       <Modal isShown={modalShown} hideModal={() => setModalShown(false)}>

@@ -3,16 +3,16 @@ import firebase from "firebase";
 import { useContext } from "react/cjs/react.development";
 import DatasetsContext from "../../datasetscontext.js";
 
-function DatasetsMenu({ hideModal, cell, cellID }) {
-  const [selectedDataset, setSelectedDataset] = useState(cell.dataset);
+function DatasetsMenu({ hideModal, notebook, notebookID }) {
+  const [selectedDataset, setSelectedDataset] = useState(notebook.dataset);
   const datasets = useContext(DatasetsContext);
 
   const onTypeSelected = () => {
     firebase
       .database()
-      .ref("cells/" + cellID)
+      .ref("notebooks/" + notebookID)
       .set({
-        ...cell,
+        ...notebook,
         dataset: selectedDataset,
       });
     hideModal();
@@ -21,7 +21,7 @@ function DatasetsMenu({ hideModal, cell, cellID }) {
   return (
     <>
       <div className="modal-item-container">
-        <h4>Select operation</h4>
+        <h4>Select dataset</h4>
         {Object.keys(datasets).map((key) => (
           <div className="calculations-menu-row">
             <input
