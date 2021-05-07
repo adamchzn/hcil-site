@@ -22,7 +22,7 @@ function DatasetsMenu({ hideModal, notebook, notebookID }) {
     <>
       <div className="modal-item-container">
         <h4>Select dataset</h4>
-        {Object.keys(datasets).map((key) => (
+        {Object.keys(datasets || {}).map((key) => (
           <div className="calculations-menu-row">
             <input
               type="radio"

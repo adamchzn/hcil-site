@@ -11,3 +11,5 @@ export const CALCULATIONS = {
     max: "Maximum",
     quartiles: "Quartiles",
 }
+
+export const SOURCE_DATA_ID = "DATASET";

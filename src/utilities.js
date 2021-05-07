@@ -27,22 +27,39 @@ export const useCreateNewNotebook = () => {
   };
 };
 
-export const createNewCell = (notebookID, notebook) => {
-  const ref = firebase.database().ref("cells/");
-  const cellID = ref.push().key;
+export const createNewCellGroup = (notebookID, notebook) => {
+  const ref = firebase.database().ref("cellgroups/");
+  const groupID = ref.push().key;
 
-  ref.child(cellID).set({
-    notebookID: notebookID,
+  ref.child(groupID).set({
+    notebookID,
     name: "",
     input: "",
-    output: "",
     description: "",
+    cells: [],
   });
 
   const notebookRef = firebase
     .database()
-    .ref("notebooks/" + notebookID + "/cells");
-  notebookRef.set([...(notebook.cells == null ? [] : notebook.cells), cellID]);
+    .ref("notebooks/" + notebookID + "/cellgroups");
+  notebookRef.set([
+    ...(notebook.cellgroups == null ? [] : notebook.cellgroups),
+    groupID,
+  ]);
+};
+
+export const createNewCell = (groupID, cellgroup) => {
+  const ref = firebase.database().ref("cells/");
+  const cellID = ref.push().key;
+
+  ref.child(cellID).set({
+    groupID,
+    name: "",
+    description: "",
+  });
+
+  const groupRef = firebase.database().ref("cellgroups/" + groupID + "/cells");
+  groupRef.set([...(cellgroup.cells == null ? [] : cellgroup.cells), cellID]);
 };
 
 export const deleteCell = (cellID, cell, notebook) => {
@@ -122,3 +139,17 @@ export const rotateData = (data) => {
 // 		console.log("Row:", results.data);
 // 	}
 // });
+
+export function allCellgroupsLoaded(notebook, cellgroups) {
+  if (notebook == null) {
+    return false;
+  }
+  for (const index in notebook.cellgroups) {
+    const groupID = notebook.cellgroups[index];
+    if (!(groupID in cellgroups)) {
+      return false;
+    }
+  }
+
+  return true;
+}

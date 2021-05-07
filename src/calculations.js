@@ -126,11 +126,11 @@ export function dumbdata() {
 
 // perform calculation
 // need to add a way to get the referenced dataset
-export function doCalculations(cells, cellIDs, datasets) {
+export function doCalculations(cells, cellIDs, sourceInput) {
   const results = {};
 
   for (const i in cellIDs) {
-    const input = i === 0 ? {} : results[cellIDs[i - 1]];
+    const input = i === 0 ? sourceInput : results[cellIDs[i - 1]];
 
     let output;
     const cellID = cellIDs[i];
@@ -157,11 +157,6 @@ export function doCalculations(cells, cellIDs, datasets) {
       case CELL_TYPES.chart:
         output = {};
         break;
-      case CELL_TYPES.loadData:
-        // make this the cell's dataset and also the datasets so it can look the dataset up
-        output = loadData(datasets, cells[cellID]);
-        break;
-      // NEED TO DELETE
     }
     results[cellID] = output;
   }
@@ -169,7 +164,7 @@ export function doCalculations(cells, cellIDs, datasets) {
 }
 
 export function loadData(datasets, notebook) {
-  if (datasets[notebook.dataset] == null) {
+  if (datasets == null || datasets[notebook.dataset] == null) {
     return {};
   }
   return datasets[notebook.dataset].data;

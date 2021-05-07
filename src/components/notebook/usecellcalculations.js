@@ -1,61 +1,43 @@
 import { useEffect, useState, useContext } from "react";
 import { doCalculations } from "../../calculations";
-import firebase from "firebase";
 import DatasetsContext from "../../datasetscontext";
+import { SOURCE_DATA_ID } from "./../../constants.js";
+import { allCellgroupsLoaded } from "./../../utilities.js";
 
-export function useCellCalculations(notebook) {
-  const [cells, setCells] = useState({});
+export function useCellCalculations(notebook, cellgroups, cells) {
   const [results, setResults] = useState({});
-  const [hasFetched, setHasFetched] = useState({});
   const datasets = useContext(DatasetsContext);
-  // need a state for referenced datasets
-
-  // Need a similar thing for loading referenced datasets
-  useEffect(() => {
-    if (notebook == null) {
-      return;
-    }
-    for (let i in notebook.cells) {
-      const cellID = notebook.cells[i];
-
-      if (hasFetched[cellID]) {
-        continue;
-      }
-
-      setHasFetched((hasFetched) => ({ ...hasFetched, [cellID]: true }));
-      console.log(cellID);
-
-      var cellRef = firebase.database().ref("cells/" + cellID);
-      cellRef.on("value", (snapshot) => {
-        const data = snapshot.val();
-        setCells((cells) => ({ ...cells, [cellID]: data }));
-      });
-    }
-  }, [notebook, cells]);
+  const cellgroupsLoaded = allCellgroupsLoaded(notebook, cellgroups);
 
   useEffect(() => {
-    if (notebook == null) {
-      return;
-    }
+    if (datasets !== null && cells !== null && !cellgroupsLoaded) {
+      const currentResults = {};
+      const sourceDataset = datasets[notebook.dataset].data;
 
-    // need a similar hasMissingDataset
-    let hasMissingCell = false;
-    for (const i in notebook.cells) {
-      const cellID = notebook.cells[i];
-
-      if (cells[cellID] == null) {
-        hasMissingCell = true;
-
-        break;
+      for (let i in notebook.cellgroups) {
+        const cellgroup = cellgroups[i];
+        currentResults = doCellGroupCalcs(
+          cellgroup,
+          cells,
+          currentResults,
+          sourceDataset
+        );
       }
+      setResults(currentResults);
     }
+  }, [cellgroups, cells]);
 
-    if (hasMissingCell == false && datasets !== null) {
-      // Need to pass in datasets here
+  return results;
+}
 
-      setResults(doCalculations(cells, notebook.cells, datasets));
-    }
-  }, [notebook, cells]);
+export function doCellGroupCalcs(cellgroup, cells, results, sourceDataset) {
+  const cellIDs = cellgroup.cells;
+  const selectedCellID = cellgroup.input;
+  const sourceInput = results[selectedCellID];
 
-  return { cells, results };
+  if (cellgroup.input == SOURCE_DATA_ID) {
+    sourceInput = sourceDataset;
+  }
+
+  return { ...doCalculations(cells, cellIDs, sourceInput), ...results };
 }

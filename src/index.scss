@@ -275,11 +275,10 @@ nav {
     .page-container {
         background-color: white;
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         width: 850px;
         padding: 70px 0px 70px 0px;
+        display: flex;
+        flex-direction: column;
 
         .notebook-title {
             box-sizing: border-box;
@@ -460,6 +459,39 @@ nav {
     }
 }
 
+.cellgroup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-left: #000000 solid 2px;
+    margin-bottom: 20px;
+
+    .newcell-button {
+        background-color: #000000;
+        color: #ffffff;
+        font-size: 14px;
+        padding: 6px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+}
+
+.newcellgroup-button {
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 7px 10px 7px 10px;
+    border-radius: 15px;
+    margin-top: 20px;
+    width: fit-content;
+    align-self: center;
+}
+
+.input-data {
+    align-self: center;
+    margin-bottom: 30px;
+}
+
 .cell-menu-container {
     position: relative;
 }
@@ -533,6 +565,16 @@ nav {
 }
 
 .save-calculation-change {
+    background-color: #2c50a0;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 8px 5px 8px;
+    width: max-content;
+    height: fit-content;
+    align-self: flex-end;
+}
+
+.save-input-change {
     background-color: #2c50a0;
     color: white;
     border-radius: 5px;
